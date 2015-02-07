@@ -1,0 +1,11 @@
+{
+	"config":{
+		"image_properties":{
+			"file_format": "PNG"
+			},
+		"path":{
+			"image_source": "img/",
+			"image_result": "img/"
+		}
+	}
+}
