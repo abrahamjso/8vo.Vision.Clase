@@ -114,3 +114,23 @@ class ImageFilter(object):
 		#image = image.point(lambda p: p * beta)
 		image.save(IMAGE_RESULT+'lightenImage.'+IMAGE_FORMAT.lower(), IMAGE_FORMAT)
 		return image
+
+	def duplicate(self):
+		image = Image.open(self.original_image)
+		pixel = image.load()
+		w, h = image.size
+
+		image_2 = Image.new( 'RGB', (w,h), "black") # create a new black image
+		pixel_2 = image_2.load() # create the pixel map
+
+		for i in range(w):
+			for j in range(h):
+				r = pixel[i,j][0]
+				g = pixel[i,j][1]
+				b = pixel[i,j][2]
+
+				alpha = (r+g+b) / 3
+				pixel_2[i, j] = (alpha, alpha, alpha)
+		image_2.save(IMAGE_RESULT+'duplicateImage.'+IMAGE_FORMAT.lower(), IMAGE_FORMAT)
+		return image_2
+
