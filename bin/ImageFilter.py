@@ -97,3 +97,20 @@ class ImageFilter(object):
 		image.save(IMAGE_RESULT+'negativeScale.'+IMAGE_FORMAT.lower(), IMAGE_FORMAT)
 		return image
 
+
+	def lightenImage(self):
+		image = Image.open(self.original_image)
+		pixel = image.load()
+		w, h = image.size
+		
+		for i in range(w):
+			for j in range(h):
+				r = pixel[i,j][0]
+				g = pixel[i,j][1]
+				b = pixel[i,j][2]
+
+				alpha = (r+g+b) / 3
+				pixel[i, j] = (alpha, alpha, alpha)
+		image = image.point(lambda p: p * 10)
+		image.save(IMAGE_RESULT+'lightenImage.'+IMAGE_FORMAT.lower(), IMAGE_FORMAT)
+		return image
