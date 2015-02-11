@@ -107,6 +107,21 @@ $ python main.py
 
 Algoritmos o procesamientos importantes
 --------------
+
+Lo primero que hay que entender es lo siguiente, ya que a partir de ello, algúnos fragmentos del código se repiten
+```python
+def method(image):
+	pixel = image.load() #Cargamos la imagen a una matris de pixeles
+	w, h = image.size #Obtenemos las medidas de nuestra imaen
+	
+	for i in range(w):#Hacemos el recorrido de nuestra imagen para asi sacar los pixeles de ella
+		for j in range(h):
+			r = pixel[i,j][0] #Tomamos el rgb de nuestro pixel
+			g = pixel[i,j][1]
+			b = pixel[i,j][2]
+	...
+```
+
 ####grayScale
 ```python
 def grayScale(image):
