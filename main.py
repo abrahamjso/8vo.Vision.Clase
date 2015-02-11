@@ -51,6 +51,9 @@ class VisionApp(object):
 		btnNegativeScale = Button(text="Negative", command=self.NegativeScale_image)
 		btnNegativeScale.pack(in_=self.frame, side=LEFT)
 
+		btnLightenImage = Button(text="Lighten", command=self.lighten_image)
+		btnLightenImage.pack(in_=self.frame, side=LEFT)
+
 	def load_image(self, image): # Method witch gonna help to load the images
 		image = ImageTk.PhotoImage(image)
 		self.panel = Label(image = image)
@@ -81,6 +84,10 @@ class VisionApp(object):
 	def NegativeScale_image(self):
 		self.panel.destroy()
 		return self.load_image(self.imageFilterapp.negativeScale())
+		
+	def lighten_image(self):
+		self.panel.destroy()
+		return self.load_image(self.imageFilterapp.lightenImage())
 
 if __name__ == '__main__':
 	app = VisionApp()
