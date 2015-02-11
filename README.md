@@ -1,4 +1,4 @@
-8vo.Vision.Clase Tarea1 - Equipo Naranja
+8vo.Vision.Clase - Equipo
 ===================
 
 
@@ -221,4 +221,24 @@ def lightenImage(image,beta):
 			alpha = alpha + beta #A partir de nuestro alpha le sumamos el valor de entrada que es el valor a aumentar
 			pixel[i, j] = (alpha, alpha, alpha)
 	#image = image.point(lambda p: p * beta) #Otra forma para aumentar el brillo con lambda
+```
+
+####lightenImage
+```python
+def duplicate(image):
+	image = Image.open(self.original_image)
+	pixel = image.load()
+	w, h = image.size
+
+	image_2 = Image.new( 'RGB', (w,h), "black") # creamos un nuvo lienzo en blanco
+	pixel_2 = image_2.load() # create the pixel map
+
+	for i in range(w):
+		for j in range(h):
+			r = pixel[i,j][0]
+			g = pixel[i,j][1]
+			b = pixel[i,j][2]
+
+			alpha = (r+g+b) / 3
+			pixel_2[i, j] = (alpha, alpha, alpha) # Asignamos los valores a nuestra lienzo en blanco
 ```
