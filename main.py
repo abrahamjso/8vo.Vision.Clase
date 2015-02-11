@@ -31,6 +31,10 @@ class VisionApp(object):
 		self.frame = Frame()
 		self.frame.pack(fill=X, padx=5, pady=5)
 		self.root.title("Tarea 1")
+		self.frameButtons1 = Frame()
+		self.frameButtons1.pack(fill=X, padx=1, pady=1)
+		self.frameButtons2 = Frame()
+		self.frameButtons2.pack(fill=X, padx=1, pady=1)
 	
 	def create_buttons(self):
 		btnOriginal = Button(text="Original", command=self.original_image)
@@ -44,15 +48,22 @@ class VisionApp(object):
 
 		btnGrayScaleMax = Button(text="GrayScaleMax", command=self.grayScaleMax_image)
 		btnGrayScaleMax.pack(in_=self.frame, side=LEFT)
-		
-		btnBinaryScale = Button(text="BinaryScale", command=self.BinaryScale_image)
-		btnBinaryScale.pack(in_=self.frame, side=LEFT)
+			
 
-		btnNegativeScale = Button(text="Negative", command=self.NegativeScale_image)
-		btnNegativeScale.pack(in_=self.frame, side=LEFT)
+		lbl = Label(text="Ingresa un valor:")
+		lbl.pack(in_=self.frameButtons1, side=LEFT)
+		self.eFrame1 = Entry(width=3)
+		self.eFrame1.insert(0, "0")
+		self.eFrame1.pack(in_=self.frameButtons1, side=LEFT)
+
+		btnBinaryScale = Button(text="BinaryScale", command=self.BinaryScale_image)
+		btnBinaryScale.pack(in_=self.frameButtons1, side=LEFT)
 
 		btnLightenImage = Button(text="Lighten", command=self.lighten_image)
-		btnLightenImage.pack(in_=self.frame, side=LEFT)
+		btnLightenImage.pack(in_=self.frameButtons1, side=LEFT)
+
+		btnNegativeScale = Button(text="Negative", command=self.NegativeScale_image)
+		btnNegativeScale.pack(in_=self.frameButtons2, side=LEFT)
 
 	def load_image(self, image): # Method witch gonna help to load the images
 		image = ImageTk.PhotoImage(image)
@@ -77,17 +88,19 @@ class VisionApp(object):
 		self.panel.destroy()
 		return self.load_image(self.imageFilterapp.grayScaleMax())
 
-	def BinaryScale_image(self):
-		self.panel.destroy()
-		return self.load_image(self.imageFilterapp.binaryScale())
-
 	def NegativeScale_image(self):
 		self.panel.destroy()
 		return self.load_image(self.imageFilterapp.negativeScale())
+
+	def BinaryScale_image(self):
+		self.panel.destroy()
+		beta = self.eFrame1.get()
+		return self.load_image(self.imageFilterapp.binaryScale(beta=beta))
 		
 	def lighten_image(self):
 		self.panel.destroy()
-		return self.load_image(self.imageFilterapp.lightenImage())
+		beta = self.eFrame1.get()
+		return self.load_image(self.imageFilterapp.lightenImage(beta=beta))
 
 if __name__ == '__main__':
 	app = VisionApp()

@@ -56,11 +56,11 @@ class ImageFilter(object):
 		image.save(IMAGE_RESULT+'grayScaleMin.'+IMAGE_FORMAT.lower(), IMAGE_FORMAT)
 		return image
 
-	def binaryScale(self):
+	def binaryScale(self, beta=0):
 		image = Image.open(self.original_image)
 		pixel = image.load()
 		w, h = image.size
-		umbral = 122
+		umbral = int(beta)
 
 		for i in range(w):
 			for j in range(h):
@@ -89,20 +89,19 @@ class ImageFilter(object):
 				g = pixel[i,j][1]
 				b = pixel[i,j][2]
 
-				alpha_r = 255 - r
-				alpha_g = 255 - g
-				alpha_b = 255 - b
-
-				pixel[i, j] = (alpha_r, alpha_g, alpha_b)
+				alpha = (r+g+b) / 3
+				alpha = 255 - alpha
+				
+				pixel[i, j] = (alpha, alpha, alpha)
 		image.save(IMAGE_RESULT+'negativeScale.'+IMAGE_FORMAT.lower(), IMAGE_FORMAT)
 		return image
 
 
-	def lightenImage(self):
+	def lightenImage(self,beta=0):
 		image = Image.open(self.original_image)
 		pixel = image.load()
 		w, h = image.size
-		
+		beta=int(beta)
 		for i in range(w):
 			for j in range(h):
 				r = pixel[i,j][0]
@@ -110,7 +109,8 @@ class ImageFilter(object):
 				b = pixel[i,j][2]
 
 				alpha = (r+g+b) / 3
+				alpha = alpha + beta
 				pixel[i, j] = (alpha, alpha, alpha)
-		image = image.point(lambda p: p * 10)
+		#image = image.point(lambda p: p * beta)
 		image.save(IMAGE_RESULT+'lightenImage.'+IMAGE_FORMAT.lower(), IMAGE_FORMAT)
 		return image
