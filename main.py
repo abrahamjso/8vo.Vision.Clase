@@ -11,6 +11,7 @@ CONFIG_FILE.close()
 from Tkinter import *
 from PIL import Image, ImageTk
 from bin.ImageFilter import ImageFilter
+from bin.Filtros import BaseImage, Filtros, Threshold
 
 PATH_IMAGE = IMAGE_SOURCE + 'sample.png'
 
@@ -35,20 +36,20 @@ class VisionApp(object):
 		self.frameButtons1.pack(fill=X, padx=1, pady=1)
 		self.frameButtons2 = Frame()
 		self.frameButtons2.pack(fill=X, padx=1, pady=1)
-	
+
 	def create_buttons(self):
 		btnOriginal = Button(text="Original", command=self.original_image)
 		btnOriginal.pack(in_=self.frame, side=LEFT)
 
 		btnGrayScale = Button(text="GrayScale", command=self.grayScale_image)
 		btnGrayScale.pack(in_=self.frame, side=LEFT)
-		
+
 		btnGrayScaleMin = Button(text="GrayScaleMin", command=self.grayScaleMin_image)
 		btnGrayScaleMin.pack(in_=self.frame, side=LEFT)
 
 		btnGrayScaleMax = Button(text="GrayScaleMax", command=self.grayScaleMax_image)
 		btnGrayScaleMax.pack(in_=self.frame, side=LEFT)
-			
+
 
 		lbl = Label(text="Ingresa un valor:")
 		lbl.pack(in_=self.frameButtons1, side=LEFT)
@@ -96,11 +97,27 @@ class VisionApp(object):
 		self.panel.destroy()
 		beta = self.eFrame1.get()
 		return self.load_image(self.imageFilterapp.binaryScale(beta=beta))
-		
+
 	def lighten_image(self):
 		self.panel.destroy()
 		beta = self.eFrame1.get()
 		return self.load_image(self.imageFilterapp.lightenImage(beta=beta))
 
 if __name__ == '__main__':
-	app = VisionApp()
+	#app = VisionApp()
+	img = Image.open('img/sample.png')
+	bi = BaseImage(img)
+	bi.grayScale()
+
+	filtros = Filtros(bi.o_img) #mandamos la imagen de salida
+	filtros.duplicarImage()
+	filtros.salPimienta()
+
+	filtros = Filtros(bi.o_img) #mandamos la imagen de salida
+	filtros.media()
+	filtros.mediana()
+	filtros.moda()
+
+	threshold = Threshold(bi.o_img)
+	threshold.duplicarImage()
+	threshold.threshold(16)

@@ -1,5 +1,5 @@
 import json
-CONFIG_FILE = open('../config.json')
+CONFIG_FILE = open('config.json')
 data_json = json.load(CONFIG_FILE)
 IMAGE_SOURCE = data_json['config']['path']['image_source']
 IMAGE_RESULT = data_json['config']['path']['image_result']
@@ -28,7 +28,7 @@ class BaseImage(ImageModel): #heredan del modelo
                 b = self._pixels[i,j][2]
                 alpha = (r+g+b) / 3
                 self.o_pixels[i,j] = (alpha, alpha, alpha)
-        self.o_img.save('../'+IMAGE_RESULT+'grayScale.'+IMAGE_FORMAT.lower(), IMAGE_FORMAT)
+        self.o_img.save(IMAGE_RESULT+'grayScale.'+IMAGE_FORMAT.lower(), IMAGE_FORMAT)
 
 
 PORCIENTO_RUIDO = 1.5 #porcentaje de ruido
@@ -56,7 +56,7 @@ class Filtros(ImageModel): #heredan del modelo
             if _r == False: # En caso que sea falso, asignamos negro
                 _sp = 255
             self.o_pixels[i,j] = (_sp, _sp, _sp)
-        self.o_img.save('../'+IMAGE_RESULT+'SalPimienta.'+IMAGE_FORMAT.lower(), IMAGE_FORMAT)
+        self.o_img.save(IMAGE_RESULT+'SalPimienta.'+IMAGE_FORMAT.lower(), IMAGE_FORMAT)
 
     def get_vecinos(self, i,j): #obtenemos el pixel vecino
         _p_vecinos = []
@@ -104,7 +104,7 @@ class Filtros(ImageModel): #heredan del modelo
                 _p_vecinos = self.get_vecinos(i,j) #obtenemos los pixeles vecinos
                 media = sum(_p_vecinos) / len(_p_vecinos)
                 self.o_pixels[i,j] = (media, media, media)
-        self.o_img.save('../'+IMAGE_RESULT+'Media.'+IMAGE_FORMAT.lower(), IMAGE_FORMAT)
+        self.o_img.save(IMAGE_RESULT+'Media.'+IMAGE_FORMAT.lower(), IMAGE_FORMAT)
 
     def mediana(self):
         for i in range(self._w):
@@ -113,7 +113,7 @@ class Filtros(ImageModel): #heredan del modelo
                 _p_vecinos.sort() #ordenamos nuesta lista para sacar la mediana
                 mediana = _p_vecinos[len(_p_vecinos)/2] # Tomamos el pixel medio
                 self.o_pixels[i,j] = (mediana, mediana, mediana)
-        self.o_img.save('../'+IMAGE_RESULT+'Mediana.'+IMAGE_FORMAT.lower(), IMAGE_FORMAT)
+        self.o_img.save(IMAGE_RESULT+'Mediana.'+IMAGE_FORMAT.lower(), IMAGE_FORMAT)
 
     def moda(self):
         for i in range(self._w):
@@ -122,7 +122,7 @@ class Filtros(ImageModel): #heredan del modelo
                 moda = Counter(_p_vecinos) #Sacamos la moda, regresandonos la frecuencia con la que se repiten los elementos en la lista
                 moda = moda.most_common(1) #Obtenemos el elemento mas comun, regresandonos una tupla
                 self.o_pixels[i,j] = (moda[0][0], moda[0][0], moda[0][0])
-        self.o_img.save('../'+IMAGE_RESULT+'Moda.'+IMAGE_FORMAT.lower(), IMAGE_FORMAT)
+        self.o_img.save(IMAGE_RESULT+'Moda.'+IMAGE_FORMAT.lower(), IMAGE_FORMAT)
 
 
 class Threshold(ImageModel):
@@ -146,7 +146,7 @@ class Threshold(ImageModel):
                         else:
                             _p = umbral * (x+2)
                 self.o_pixels[i,j] = (_p, _p, _p)
-        self.o_img.save('../'+IMAGE_RESULT+'Threshold.'+IMAGE_FORMAT.lower(), IMAGE_FORMAT)
+        self.o_img.save(IMAGE_RESULT+'Threshold.'+IMAGE_FORMAT.lower(), IMAGE_FORMAT)
 
 
 if __name__ == '__main__':
