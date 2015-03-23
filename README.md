@@ -28,23 +28,14 @@ El directorio esta constituído de la siguiente manera:
 ```
 |--8vo.Vision.Clase/
 	|--bin/
-	|--img/
-	|--config.json
-	|--main.py
-```
-####**bin**
-Es el directorio donde tenemos alojado los scripts.
-```
-|--8vo.Vision.Clase/
-	|--bin/
 		|--__init__.py
 		|--Filtros.py   //tarea 2
-		|--ImageFilter.py
+		|--ImageFilter.py //tarea 1
 	|--img/
 	|--config.json
 	|--main.py
 ```
 
 ####**Referencias**
-[http://www.mathworks.com/help/images/](http://www.mathworks.com/help/images/)
-[http://homepages.inf.ed.ac.uk/rbf/HIPR2/median.htm](http://homepages.inf.ed.ac.uk/rbf/HIPR2/median.htm)
+- [http://www.mathworks.com/help/images/](http://www.mathworks.com/help/images/)
+- [http://homepages.inf.ed.ac.uk/rbf/HIPR2/median.htm](http://homepages.inf.ed.ac.uk/rbf/HIPR2/median.htm)
